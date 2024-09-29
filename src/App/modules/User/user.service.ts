@@ -15,7 +15,9 @@ const createUserIntoDB = async (userData: TUser) => {
         throw new AppError(400, 'User is Already exist')
     }
     const result = await User.create(userData)
-    return result
+    if (result) {
+        return null
+    }
 }
 const getMeFromDB = async (userData: Partial<TUser>) => {
     const user = await User.findOne({ userName: userData.userName })
@@ -25,7 +27,8 @@ const getMeFromDB = async (userData: Partial<TUser>) => {
     }
     const isPasswordTrue = await bcrypt.compare(userData.password as string, user?.password as string)
     if (isPasswordTrue) {
-        const jwtData = { userName: user?.userName, role: userData.role }
+        const jwtData = { userName: user?.userName, role: user?.role }
+        console.log(jwtData);
         const result = jwt.sign(jwtData, config.jwt_secret as string,)
         console.log(result);
         return { token: result }
