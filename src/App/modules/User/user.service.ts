@@ -37,8 +37,27 @@ const getMeFromDB = async (userData: Partial<TUser>) => {
         throw new AppError(httpStatus.FORBIDDEN, 'Wrong password')
     }
 }
+const userPasswordChangeFromDB = async (payload: { userName: string, currentPassword: string, newPassword: string }) => {
+    const isUserExist = await User.findOne({ userName: payload.userName })
+    if (!isUserExist) {
+        throw new AppError(httpStatus.NOT_FOUND, 'User is not exist')
+    }
+    const isPasswordTrue = await bcrypt.compare(payload.currentPassword as string, isUserExist?.password as string)
+    if (isPasswordTrue) {
+        const password = await bcrypt.hash(payload.newPassword, Number(config.bcrypt_salt_rounds))
+        const result = await User.updateOne({ userName: payload.userName }, { $set: { password } })
+        if (result) {
+            return null
+        }
+    }
+    else {
+        throw new AppError(httpStatus.FORBIDDEN, 'Wrong Password')
+    }
+
+}
 
 export const userServices = {
     createUserIntoDB,
-    getMeFromDB
+    getMeFromDB,
+    userPasswordChangeFromDB
 }
