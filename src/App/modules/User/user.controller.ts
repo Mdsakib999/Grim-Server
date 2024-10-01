@@ -26,8 +26,19 @@ const getMe = catchAsync(async (req: Request, res: Response) => {
         message: 'User Login Successfully '
     })
 })
+const userPasswordChange = catchAsync(async (req: Request, res: Response) => {
+    const data = req.body
+    const result = await userServices.userPasswordChangeFromDB(data)
+    sendResponse(res, {
+        data: result,
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'Password Change Successfully '
+    })
+})
 
 export const userController = {
     createUser,
-    getMe
+    getMe,
+    userPasswordChange
 }
