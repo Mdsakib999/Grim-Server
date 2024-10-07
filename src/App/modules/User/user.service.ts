@@ -40,17 +40,7 @@ const createUserIntoDB = async (userData: TUser) => {
             if (!refUser) {
                 throw new AppError(400, 'Referring user does not exist');
             }
-            // let updateDoc = null
-            // if (!refUser.ref || !Array.isArray(refUser.ref)) {
-            //     updateDoc = {
-            //         $set: {
-            //             ref: [refUser.id]
-            //         }
-            //     }
-            // }
-            // else {
-            //     updateDoc = { $push: { ref: newUser[0]._id } }
-            // }
+
             const result2 = await User.updateOne(
                 { _id: refUserId },
                 { $push: { ref: newUser[0]._id } },

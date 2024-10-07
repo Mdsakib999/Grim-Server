@@ -10,6 +10,6 @@ const router = Router()
 router.post('/create-user', validateRequest(userValidation.userValidationSchema), userController.createUser)
 router.post('/login-user', validateRequest(userValidation.userValidationSchema), userController.userLogin)
 router.post('/change-password', userController.userPasswordChange)
-router.get('/me', auth(UserRole.customer), userController.getMe)
+router.get('/me', auth(UserRole.customer, UserRole.admin), userController.getMe)
 
 export const userRouter = router

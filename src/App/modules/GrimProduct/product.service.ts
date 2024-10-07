@@ -1,3 +1,4 @@
+import { TProduct } from "./product.interface"
 import Product from "./product.model"
 
 
@@ -17,7 +18,12 @@ const getProductByCategoryFromDB = async (query: Record<string, unknown>) => {
     const product = await result.exec()
     return product
 }
+const createProductIntoDB = async (payload: TProduct) => {
+    const result = await Product.create(payload)
+    return result
+}
 
 export const productServices = {
-    getProductByCategoryFromDB
+    getProductByCategoryFromDB,
+    createProductIntoDB
 }

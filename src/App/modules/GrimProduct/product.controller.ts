@@ -16,7 +16,18 @@ const getProductByCategory = catchAsync(async (req: Request, res: Response) => {
     })
 
 })
+const createProduct = catchAsync(async (req: Request, res: Response) => {
+    const data = req.body
+    const result = await productServices.createProductIntoDB(data)
+    sendResponse(res, {
+        data: result,
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'Product Create Successfully '
+    })
+})
 
 export const productControllers = {
-    getProductByCategory
+    getProductByCategory,
+    createProduct
 }
