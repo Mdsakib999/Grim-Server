@@ -8,4 +8,5 @@ export type TProduct = {
     quantity: number;
     categoryName: string;
     subCategoryName: string;
+    oldImgUrl?: string
 };
