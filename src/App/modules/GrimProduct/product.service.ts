@@ -82,6 +82,15 @@ const editProductFromDB = async (payload: Partial<TProduct>, id: string) => {
     const result = await Product.updateOne({ _id: id }, { $set: { ...payload } }, { upsert: true })
     return result
 }
+const deleteProductFromDb = async (id: string) => {
+    const isExist = await Product.findById(id)
+    if (!isExist) {
+        throw new AppError(httpStatus.NOT_FOUND, 'Product is not exist')
+    }
+    await deleteImageUrl(isExist.image)
+    const result = await Product.deleteOne({ _id: id })
+    return result
+}
 
 
 
@@ -89,5 +98,6 @@ export const productServices = {
     getProductByCategoryFromDB,
     createProductIntoDB,
     getAllProductFromDb,
-    editProductFromDB
+    editProductFromDB,
+    deleteProductFromDb
 }

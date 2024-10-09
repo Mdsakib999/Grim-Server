@@ -47,10 +47,21 @@ const editProduct = catchAsync(async (req: Request, res: Response) => {
         message: 'Edit Product Successfully '
     })
 })
+const deleteProduct = catchAsync(async (req: Request, res: Response) => {
+    const { id } = req.params
+    const result = await productServices.deleteProductFromDb(id)
+    sendResponse(res, {
+        data: result,
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'Delete Product Successfully '
+    })
+})
 
 export const productControllers = {
     getProductByCategory,
     createProduct,
     getAllProduct,
-    editProduct
+    editProduct,
+    deleteProduct
 }

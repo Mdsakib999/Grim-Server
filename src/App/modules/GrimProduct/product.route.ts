@@ -16,5 +16,6 @@ router.patch('/editProduct/:id',
     validateRequest(productValidation.productEditValidationSchema),
     productControllers.editProduct)
 
+router.delete('/:id', productControllers.deleteProduct)
 
 export const productRoute = router
