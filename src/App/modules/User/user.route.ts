@@ -11,5 +11,7 @@ router.post('/create-user', validateRequest(userValidation.userValidationSchema)
 router.post('/login-user', validateRequest(userValidation.userValidationSchema), userController.userLogin)
 router.post('/change-password', userController.userPasswordChange)
 router.get('/me', auth(UserRole.customer, UserRole.admin), userController.getMe)
+router.get('/allUsers', auth(UserRole.admin), userController.getAllUser)
+router.delete('/:id', auth(UserRole.admin), userController.deleteUser)
 
 export const userRouter = router

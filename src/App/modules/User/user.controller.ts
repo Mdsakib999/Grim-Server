@@ -47,10 +47,31 @@ const getMe = catchAsync(async (req: Request, res: Response) => {
         message: 'Get me Successfully'
     })
 })
+const getAllUser = catchAsync(async (req: Request, res: Response) => {
+    const result = await userServices.getAllUserFromDb()
+    sendResponse(res, {
+        data: result,
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'Get All User Successfully'
+    })
+})
+const deleteUser = catchAsync(async (req: Request, res: Response) => {
+    const { id } = req.params
+    const result = await userServices.deleteUserFromDb(id)
+    sendResponse(res, {
+        data: result,
+        statusCode: httpStatus.OK,
+        success: true,
+        message: ' User Delete Successfully'
+    })
+})
 
 export const userController = {
     createUser,
     userLogin,
     userPasswordChange,
-    getMe
+    getMe,
+    getAllUser,
+    deleteUser
 }

@@ -106,10 +106,20 @@ const getMeFromDb = async (userName: string) => {
     })
     return result
 }
+const getAllUserFromDb = async () => {
+    const result = await User.find().select('-password -ref')
+    return result
+}
+const deleteUserFromDb = async (id: string) => {
+    const result = await User.deleteOne({ _id: id })
+    return result
+}
 
 export const userServices = {
     createUserIntoDB,
     userLoginFromDB,
     userPasswordChangeFromDB,
-    getMeFromDb
+    getMeFromDb,
+    getAllUserFromDb,
+    deleteUserFromDb
 }
