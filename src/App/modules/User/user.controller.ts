@@ -7,6 +7,7 @@ import httpStatus from "http-status";
 
 const createUser = catchAsync(async (req: Request, res: Response) => {
     const data = req.body
+    console.log(data);
     const result = await userServices.createUserIntoDB(data)
     sendResponse(res, {
         data: result,
@@ -16,9 +17,9 @@ const createUser = catchAsync(async (req: Request, res: Response) => {
     })
 
 })
-const getMe = catchAsync(async (req: Request, res: Response) => {
+const userLogin = catchAsync(async (req: Request, res: Response) => {
     const data = req.body
-    const result = await userServices.getMeFromDB(data)
+    const result = await userServices.userLoginFromDB(data)
     sendResponse(res, {
         data: result,
         statusCode: httpStatus.OK,
@@ -36,9 +37,20 @@ const userPasswordChange = catchAsync(async (req: Request, res: Response) => {
         message: 'Password Change Successfully '
     })
 })
+const getMe = catchAsync(async (req: Request, res: Response) => {
+    const { userName } = req.user
+    const result = await userServices.getMeFromDb(userName)
+    sendResponse(res, {
+        data: result,
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'Get me Successfully'
+    })
+})
 
 export const userController = {
     createUser,
-    getMe,
-    userPasswordChange
+    userLogin,
+    userPasswordChange,
+    getMe
 }

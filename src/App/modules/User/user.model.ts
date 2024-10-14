@@ -8,7 +8,9 @@ import config from './../../config/index';
 const userModelSchema = new Schema<TUser>({
     userName: { type: String, required: [true, ' User Name is Required'] },
     password: { type: String, required: [true, 'Password is Required'] },
-    role: { type: String, enum: ['customer', 'admin', 'superAdmin'], default: 'customer' }
+    role: { type: String, enum: ['customer', 'admin', 'superAdmin'], default: 'customer' },
+    ref: { type: [String], default: [], required: false, ref: "User" },
+    dollar: { type: Number, default: 0, required: false }
 }, {
     timestamps: true
 })

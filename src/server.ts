@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import { Server } from 'http';
 import app from './app';
 import config from './App/config';
+import { seedAdmin } from './App/DB';
 
 let server: Server
 async function main() {
@@ -10,7 +11,7 @@ async function main() {
         await mongoose.connect(config.database_url as string, {
             dbName: 'grimMarket'
         });
-
+        seedAdmin()
         // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
         server = app.listen(config.port, () => {
             console.log(`app is listening on port ${config.port}`);
