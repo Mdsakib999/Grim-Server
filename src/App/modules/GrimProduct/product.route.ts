@@ -11,7 +11,7 @@ const router = Router()
 
 
 
-router.get('/getProduct', auth(UserRole.admin), productControllers.getProductByCategory)
+router.get('/getProduct', auth(UserRole.customer), productControllers.getProductByCategory)
 router.post('/create-product', auth(UserRole.admin), validateRequest(productValidation.productValidationSchema), productControllers.createProduct)
 router.get('/getAllProduct', auth(UserRole.admin), productControllers.getAllProduct)
 router.patch('/editProduct/:id', auth(UserRole.admin),
