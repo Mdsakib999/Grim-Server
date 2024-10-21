@@ -7,7 +7,6 @@ import httpStatus from "http-status";
 
 const createUser = catchAsync(async (req: Request, res: Response) => {
     const data = req.body
-    console.log(data);
     const result = await userServices.createUserIntoDB(data)
     sendResponse(res, {
         data: result,

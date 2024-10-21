@@ -47,7 +47,6 @@ const createUserIntoDB = async (userData: TUser) => {
                 { session },
 
             );
-            console.log(result2);
         }
 
         // Commit the transaction if everything is successful
@@ -71,9 +70,7 @@ const userLoginFromDB = async (userData: Partial<TUser>) => {
     const isPasswordTrue = await bcrypt.compare(userData.password as string, user?.password as string)
     if (isPasswordTrue) {
         const jwtData = { userName: user?.userName, role: user?.role }
-        console.log(jwtData);
         const result = jwt.sign(jwtData, config.jwt_secret as string,)
-        console.log(result);
         return { token: result }
     }
     else {

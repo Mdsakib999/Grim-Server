@@ -27,7 +27,6 @@ const createProductIntoDB = async (payload: TProduct) => {
     return result
 }
 const getAllProductFromDb = async (query: Record<string, unknown>) => {
-    console.log(query);
     let result = Product.find(); // Start with the base query
 
     // Extract categoryName and subCategoryName from the query object

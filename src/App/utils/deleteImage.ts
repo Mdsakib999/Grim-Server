@@ -22,8 +22,6 @@ export const deleteImageUrl = async (url: string) => {
             type: "upload",
             resource_type: "image",
         });
-
-        console.log("Deletion Result:", result);
         return { result };  // Return the result if needed
     } catch (error) {
         console.error("Error deleting image:", error);
