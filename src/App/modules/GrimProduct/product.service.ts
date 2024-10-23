@@ -90,7 +90,11 @@ const deleteProductFromDb = async (id: string) => {
     const result = await Product.deleteOne({ _id: id })
     return result
 }
-
+const getProductByIdFromBD = async (id: string) => {
+    console.log(id);
+    const result = await Product.findById(id)
+    return result
+}
 
 
 export const productServices = {
@@ -98,5 +102,6 @@ export const productServices = {
     createProductIntoDB,
     getAllProductFromDb,
     editProductFromDB,
-    deleteProductFromDb
+    deleteProductFromDb,
+    getProductByIdFromBD
 }
