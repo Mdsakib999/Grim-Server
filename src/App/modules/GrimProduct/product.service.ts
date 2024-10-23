@@ -12,12 +12,15 @@ const getProductByCategoryFromDB = async (query: Record<string, unknown>) => {
     let result = Product.find()
     const categoryName: string = query?.categoryName as string
     if (categoryName) {
-        result = result.where('categoryName').equals(categoryName)
+        // Case-insensitive filtering for categoryName
+        result = result.where('categoryName').regex(new RegExp(categoryName, 'i'));
     }
-    const subCategoryName: string = query.subCategoryName as string
+
+    const subCategoryName: string = query?.subCategoryName as string;
 
     if (subCategoryName) {
-        result = result.where('subCategoryName').equals(subCategoryName)
+        // Case-insensitive filtering for subCategoryName
+        result = result.where('subCategoryName').regex(new RegExp(subCategoryName, 'i'));
     }
     const product = await result.exec()
     return product
@@ -32,12 +35,15 @@ const getAllProductFromDb = async (query: Record<string, unknown>) => {
     // Extract categoryName and subCategoryName from the query object
     const categoryName: string = query?.categoryName as string;
     if (categoryName) {
-        result = result.where('categoryName').equals(categoryName); // Filter by categoryName
+        // Case-insensitive filtering for categoryName
+        result = result.where('categoryName').regex(new RegExp(categoryName, 'i'));
     }
 
     const subCategoryName: string = query?.subCategoryName as string;
+
     if (subCategoryName) {
-        result = result.where('subCategoryName').equals(subCategoryName); // Filter by subCategoryName
+        // Case-insensitive filtering for subCategoryName
+        result = result.where('subCategoryName').regex(new RegExp(subCategoryName, 'i'));
     }
 
     // Additional filters (e.g., searchTerm, minPrice, maxPrice)
@@ -67,6 +73,7 @@ const getAllProductFromDb = async (query: Record<string, unknown>) => {
     const products = await result.exec();
     return products;
 };
+
 const editProductFromDB = async (payload: Partial<TProduct>, id: string) => {
     const isExist = await Product.findById(id)
     if (!isExist) {
@@ -91,7 +98,7 @@ const deleteProductFromDb = async (id: string) => {
     return result
 }
 const getProductByIdFromBD = async (id: string) => {
-    console.log(id);
+
     const result = await Product.findById(id)
     return result
 }

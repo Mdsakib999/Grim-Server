@@ -72,6 +72,18 @@ const deleteSubCategory = catchAsync(async (req: Request, res: Response) => {
     })
 
 })
+const updateSubCategory = catchAsync(async (req: Request, res: Response) => {
+    const { id } = req.params
+    const data = req.body
+    const result = await categoryServices.updateSubCategoryFromDB(data, id)
+    sendResponse(res, {
+        data: result,
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'Update Sub Category Successfully '
+    })
+
+})
 
 export const categoryControllers = {
     getAllCategory,
@@ -79,5 +91,6 @@ export const categoryControllers = {
     deleteCategory,
     editCategory,
     createSubCategory,
-    deleteSubCategory
+    deleteSubCategory,
+    updateSubCategory
 }
